@@ -1,26 +1,22 @@
-const express = require("express");
-const mockData = require("./mockData");
+const express = require('express');
+const mockData = require('./mockData');
 
 const app = express();
-const port = 3001;
+const port = 5000;
 
-// Ladda initialdata
 let characters = mockData;
 
-// Använd JSON-middleware
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
+app.get('/', (req, res) => {
+  res.send('Hello World!');
 });
 
-// Hämta alla karaktärer
-app.get("/characters", (req, res) => {
+app.get('/characters', (req, res) => {
   res.json(characters);
 });
 
-// Hämta en specifik karaktär baserat på ID
-app.get("/characters/:id", (req, res) => {
+app.get('/characters/:id', (req, res) => {
   const id = req.params.id;
   const numberId = parseInt(id);
   const character = characters.find((char) => char.id === numberId);
@@ -28,14 +24,13 @@ app.get("/characters/:id", (req, res) => {
   if (!character) {
     return res
       .status(404)
-      .json({ message: "Ingen karaktär med det idt kunde hittas!" });
+      .json({ message: 'Ingen karaktär med det idt kunde hittas!' });
   }
 
   res.json(character);
 });
 
-// Ta bort en karaktär baserat på ID
-app.delete("/characters/:id", (req, res) => {
+app.delete('/characters/:id', (req, res) => {
   const id = req.params.id;
   const numberId = parseInt(id);
 
@@ -44,19 +39,17 @@ app.delete("/characters/:id", (req, res) => {
   if (!character) {
     return res
       .status(404)
-      .json({ message: "Ingen karaktär med det idt kunde hittas!" });
+      .json({ message: 'Ingen karaktär med det idt kunde hittas!' });
   }
   const newData = characters.filter((char) => char.id !== numberId);
   characters = newData;
 
-  res.json({ message: "Karaktären har blivit borttagen!" });
+  res.json({ message: 'Karaktären har blivit borttagen!' });
 });
 
-// Skapa ett nytt unikt ID för nya karaktärer
 let nextId = 28234;
 
-// Lägg till ny karaktär
-app.post("/characters", (req, res) => {
+app.post('/characters', (req, res) => {
   const character = req.body.character;
 
   const newCharacter = {
@@ -70,8 +63,7 @@ app.post("/characters", (req, res) => {
   res.json(newCharacter);
 });
 
-// Uppdatera en karaktär baserat på ID
-app.put("/characters/:id", (req, res) => {
+app.put('/characters/:id', (req, res) => {
   const id = req.params.id;
   const numberId = parseInt(id);
   const character = req.body.character;
@@ -81,7 +73,7 @@ app.put("/characters/:id", (req, res) => {
   if (index === -1) {
     return res
       .status(404)
-      .json({ message: "Inget id matchar någon befintlig karaktär" });
+      .json({ message: 'Inget id matchar någon befintlig karaktär' });
   }
 
   const updatedCharacter = { ...characters[index], ...character };
@@ -90,7 +82,6 @@ app.put("/characters/:id", (req, res) => {
   res.json(updatedCharacter);
 });
 
-// Starta servern på angiven port
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
