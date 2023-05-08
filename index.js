@@ -1,15 +1,17 @@
 const output = document.querySelector('.output');
 
-const api = 'http://localhost:5000/movies';
+const API_URL = 'http://localhost:5000/characters';
 
-const fetchedMovies = [];
+const fetchedCharacters = [];
 
-const fetch = async (api) => {
+const fetchAPI = async (api) => {
   const data = await fetch(api);
   const movies = await data.json();
-  fetchedMovies.push(movies);
-  console.log(fetchedMovies);
+  fetchedCharacters.push(movies);
+  console.log(fetchedCharacters);
 };
+
+fetchAPI(API_URL)
 
 const title = 'movie title';
 const powers = 'super powers';

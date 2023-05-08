@@ -1,10 +1,20 @@
 const express = require('express');
 const mockData = require('./mockData');
+const cors = require('cors');
 
 const app = express();
 const port = 5000;
 
 let characters = mockData;
+
+// adding cors to get rid of the cors policy
+const corsOptions = {
+  origin: '*',
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
