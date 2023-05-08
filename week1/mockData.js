@@ -4,7 +4,7 @@ const mockData = [
     name: 'Black Panther',
     powers: ['Vibranium', 'Super human strenght'],
     weaknesses: ['No real powers', 'Electrocuted'],
-    image: '/image/bp.png',
+    image: '/images/bp.png',
   },
   {
     id: 2,
